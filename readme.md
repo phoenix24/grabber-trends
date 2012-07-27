@@ -17,8 +17,15 @@ price trends analyzer.
 - $ ./setup.sh <db-name>
 
 
-##### solution1, 
+##### solution1, poor man's solution.
 -------------------------------
+- query trends over the commandline.
+- $ ./pricetrends_cmd.py
 
 
+##### solution2, rich man's solution.
+-------------------------------
+- query trends over the web ui.
+- start the server by kicking off ./pricetrends_web.py
+- you'll get a local web-server running on port 10000
 
