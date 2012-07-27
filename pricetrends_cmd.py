@@ -14,34 +14,38 @@ def fetchTrendsByQuery(query):
     cur.execute(query)
     return cur.fetchall()    
 
-def productTrendsById(productId, startDt, endDt):
-    """ fetch product trends for the startDt and endDt. """
-    query = base_query % ('productId', productId, startDt, endDt)
-    return fetchTrendsByQuery(query)
+def prepareTrendsQuery(queryCategory, queryId, startDt, endDt):
+    """ """
+    # todo : validate the parameters.
+    return base_query % (queryCategory, queryId, startDt, endDt)
 
-def categoryTrendsById(productId, startDt, endDt):
-    """ fetch category trends for the startDt and endDt. """
-    query = base_query % ('categoryId', productId, startDt, endDt)
-    return fetchTrendsByQuery(query)
+def fetchTrends(queryCategory, queryId, startDt, endDt):
+    query = prepareTrendsQuery(queryCategory, queryId, startDt, endDt)
+    trends = fetchTrendsByQuery(query)
+    result = { "queryCategory" : queryCategory,
+               "queryId" : queryId,
+               "startDt" : startDt,
+               "endDt"   : endDt,
+               "trends"  : trends}
+    return result
 
-def brandTrendsByName(productId, startDt, endDt):
-    """ fetch category trends for the startDt and endDt. """
-    query = base_query % ('brand', productId, startDt, endDt)
-    return fetchTrendsByQuery(query)
-
-def printTrends(trends):
+def printTrends(result):
     """ print trends in human readable format. """
+
+    print "trends for %(queryCategory)s:%(queryId)s in range %(startDt)s to %(endDt)s" % (result)
+    print "-" * 140
+    trends = result["trends"]
     for trend in trends:
-        print trend
+        print list(trend)
     print
 
 if __name__ == '__main__':
-    trends = productTrendsById('101332', '2012-02-06', '2012-02-29')
+    trends = fetchTrends('productId', '101332', '2012-02-06', '2012-02-29')
     printTrends(trends)
 
-    trends = categoryTrendsById('1', '2012-02-06', '2012-02-29')
+    trends = fetchTrends('categoryId', '3', '2012-02-06', '2012-02-29')
     printTrends(trends)
-    
-    trends = brandTrendsByName('Sony', '2012-02-06', '2012-02-29')
+
+    trends = fetchTrends('brand', 'Sony', '2012-02-06', '2012-02-29')
     printTrends(trends)
     
