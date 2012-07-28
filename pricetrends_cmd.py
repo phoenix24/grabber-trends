@@ -26,20 +26,20 @@ def usage():
     print "\t<id or name of product>, depending on trend type this should be one of the following : productID/categoryID/brandName"
     print "\t<startDt>              , valid start date in (YYYY-MM-DD Format)"
     print "\t<endDt>                , valid end date in (YYYY-MM-DD Format)"
+    print
+    print "\t# sample usage : "
+    print "\t$ python pricetrends_cmd.py categoryId 3 2012-02-06 2012-02-29"
+    print "\t$ python pricetrends_cmd.py productId 101332 2012-02-06 2012-02-29"
+    print "\t$ python pricetrends_cmd.py brand Sony aasda 2012-02-86 2012-02-29"
+    print
     sys.exit(1)
 
 
 def validateArgs(qtype, qid, stdate, enddate):
-    
-    if qtype not in ["productId", "categoryId", "brand"]:
-        print "ERROR : invalid trend query type. Try Again!"
-        sys.exit(-1)
+    return True
 
     #todo
-    # if stdate:
-    #     print "ERROR : invalid trend query type."
-    
-    # if enddate:
+    # if invalidDate(stdate) or invalidDate(stdate) or invalidQtype(qtype):
     #     print "ERROR : invalid trend query type."
     
     
@@ -48,20 +48,10 @@ if __name__ == '__main__':
     if len(sys.argv) != 5:
         print usage()
 
-
-    # 'categoryId', '3123', '2012-02-06', '2012-02-29'
-    # 'productId', '101332', '2012-02-06', '2012-02-29'
-    # 'brand', 'Sony aasda', '2012-02-86', '2012-02-29'
-
     qtype, qid, stdate, enddate = sys.argv[1:]
     validateArgs(qtype, qid, stdate, enddate)
 
-    trends = fetchTrendsAsList('productId', '101332', '2012-02-06', '2012-02-29')
-    printTrends(trends)
-
-    trends = fetchTrendsAsList('categoryId', '3123', '2012-02-06', '2012-02-29')
-    printTrends(trends)
-
-    trends = fetchTrendsAsList('brand', 'Sony aasda', '2012-02-86', '2012-02-29')
+    # fetch trends for the arguments and print them.
+    trends = fetchTrendsAsList(qtype, qid, stdate, enddate)
     printTrends(trends)
     

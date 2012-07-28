@@ -37,7 +37,7 @@ def fetchTrendsAsDict(queryCategory, queryId, startDt, endDt):
 
     ntrends = []
     for trend in trends:
-        ntrend = dict(zip(field_query, trend))
+        ntrend = dict(zip(field_query, map(str, trend)))
         ntrends.append(ntrend)
 
     result["trends"] = ntrends
