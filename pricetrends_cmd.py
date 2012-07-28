@@ -7,12 +7,12 @@ def printTrends(result):
 
     header = "trends for %(queryCategory)s:%(queryId)s in range %(startDt)s to %(endDt)s" % (result)
     footer = "-" * len(header)
+
+    # do the printing!
     print header
     print footer
-
-    trends = result["trends"]
-    for trend in trends:
-        print list(trend)
+    for trend in result["trends"]:
+        print '|'.join(trend)
     print footer
     print
     
@@ -20,9 +20,9 @@ if __name__ == '__main__':
     trends = fetchTrendsAsList('productId', '101332', '2012-02-06', '2012-02-29')
     printTrends(trends)
 
-    trends = fetchTrendsAsList('categoryId', '3', '2012-02-06', '2012-02-29')
+    trends = fetchTrendsAsList('categoryId', '3123', '2012-02-06', '2012-02-29')
     printTrends(trends)
 
-    trends = fetchTrendsAsList('brand', 'Sony', '2012-02-06', '2012-02-29')
+    trends = fetchTrendsAsList('brand', 'Sony aasda', '2012-02-86', '2012-02-29')
     printTrends(trends)
     
